@@ -493,3 +493,6 @@ body.mobile-menu-open {
   .footer-content { flex-direction: column; text-align: center; }
   .social-icons { margin-top: 0.5rem; }
 }
+.hardware-feature i {
+  color: #777;
+}
