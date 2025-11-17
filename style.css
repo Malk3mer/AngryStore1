@@ -1,498 +1,697 @@
-/* —————————— RESET & BASE —————————— */
+/* ====================================================================
+   🎯 RESET & BASE - إعادة تعيين الإعدادات الافتراضية للمتصفح
+==================================================================== */
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  box-sizing: border-box; /* حساب الـ padding والـ border ضمن العرض الكلي */
+  margin: 0; /* إزالة الهوامش الافتراضية */
+  padding: 0; /* إزالة الحشو الافتراضي */
 }
 html {
-  font-size: 16px;
-  scroll-behavior: smooth;
+  font-size: 16px; /* حجم الخط الأساسي للصفحة */
+  scroll-behavior: smooth; /* تمرير سلس عند الانتقال بين الأقسام */
 }
 body {
-  font-family: 'Roboto', sans-serif;
-  line-height: 1.5;
-  color: #333;
-  background-color: #f5f5f5;
-  position: relative;
-  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif; /* نوع الخط المستخدم */
+  line-height: 1.5; /* المسافة بين الأسطر */
+  color: #333; /* لون النص الافتراضي */
+  background-color: #f5f5f5; /* لون خلفية الصفحة */
+  position: relative; /* لجعل العناصر المطلقة تتموضع نسبة له */
+  overflow-x: hidden; /* منع التمرير الأفقي */
 }
 body.mobile-menu-open {
-  overflow: hidden;
+  overflow: hidden; /* منع التمرير عند فتح القائمة الجانبية في الموبايل */
 }
 
-/* —————————— UTILITIES —————————— */
+/* ====================================================================
+   🔧 UTILITIES - أدوات مساعدة عامة
+==================================================================== */
 .container {
-  width: min(100% - 2rem, 1200px);
-  margin-inline: auto;
+  width: min(100% - 2rem, 1200px); /* عرض الحاوية: إما كامل العرض ناقص 2rem أو 1200px أيهما أصغر */
+  margin-inline: auto; /* توسيط الحاوية أفقياً */
 }
 .btn {
-  display: inline-block;
-  font-weight: 500;
-  text-align: center;
-  text-decoration: none;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  padding: 0.5rem 1.2rem;
+  display: inline-block; /* عرض كـ عنصر مضمن-كتلة */
+  font-weight: 500; /* سُمك الخط */
+  text-align: center; /* محاذاة النص في المنتصف */
+  text-decoration: none; /* إزالة الخط تحت الروابط */
+  border: none; /* إزالة الحدود */
+  border-radius: 4px; /* زوايا دائرية */
+  cursor: pointer; /* تغيير المؤشر عند التمرير */
+  transition: all 0.2s ease; /* انتقال سلس لجميع التغييرات */
+  padding: 0.5rem 1.2rem; /* الحشو الداخلي (عمودي أفقي) */
 }
 .btn-primary {
-  background-color: #3CB5CD;
-  color: #fff;
+  background-color: #3CB5CD; /* لون خلفية الزر الأساسي */
+  color: #fff; /* لون النص */
 }
 .btn-primary:hover {
-  background-color: #3ECCC2;
-  transform: translateY(-2px);
+  background-color: #3ECCC2; /* تغيير اللون عند التمرير */
+  transform: translateY(-2px); /* رفع الزر قليلاً */
 }
 .btn-secondary {
-  background-color: transparent;
-  color: #fff;
-  border: 2px solid #fff;
+  background-color: transparent; /* خلفية شفافة */
+  color: #fff; /* لون النص أبيض */
+  border: 2px solid #fff; /* حدود بيضاء */
 }
 .btn-secondary:hover {
-  background-color: rgba(255,255,255,.1);
+  background-color: rgba(255,255,255,.1); /* خلفية بيضاء شفافة عند التمرير */
 }
 
-/* —————————— NAVBAR —————————— */
+/* ====================================================================
+   🧭 NAVBAR - شريط التنقل العلوي
+==================================================================== */
 .nav {
-  background-color: #c41f09;
-  box-shadow: 0 2px 10px rgba(0,0,0,.2);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  background-color: #c41f09; /* لون خلفية الشريط (أحمر) */
+  box-shadow: 0 2px 10px rgba(0,0,0,.2); /* ظل أسفل الشريط */
+  position: sticky; /* يبقى ثابت عند التمرير */
+  top: 0; /* يلتصق بأعلى الصفحة */
+  z-index: 100; /* يظهر فوق العناصر الأخرى */
 }
 .nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.8rem 0;
+  display: flex; /* عرض مرن */
+  align-items: center; /* محاذاة العناصر عمودياً في المنتصف */
+  justify-content: space-between; /* توزيع المسافات بين العناصر */
+  padding: 0.8rem 0; /* حشو عمودي فقط */
 }
 .logo {
-  height: 40px;
+  height: 40px; /* ارتفاع الشعار */
 }
 .nav-links {
-  display: flex;
-  align-items: center;
+  display: flex; /* عرض مرن */
+  align-items: center; /* محاذاة العناصر عمودياً */
 }
 .nav-links a {
-  color: #fff;
-  margin-inline: 0.75rem;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s;
-  padding: 0.5rem 0.8rem;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
+  color: #fff; /* لون النص أبيض */
+  margin-inline: 0.75rem; /* هامش أفقي */
+  text-decoration: none; /* إزالة الخط تحت الرابط */
+  font-weight: 500; /* سُمك الخط */
+  transition: all 0.2s; /* انتقال سلس */
+  padding: 0.5rem 0.8rem; /* حشو داخلي */
+  border-radius: 4px; /* زوايا دائرية */
+  display: flex; /* عرض مرن */
+  align-items: center; /* محاذاة عمودية */
+  gap: 0.3rem; /* مسافة بين الأيقونة والنص */
 }
 .nav-links a.active {
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255,255,255,0.1); /* خلفية للرابط النشط */
 }
 .nav-links a:hover {
-  background-color: rgba(255,255,255,0.15);
+  background-color: rgba(255,255,255,0.15); /* خلفية عند التمرير */
 }
 .nav-links a i {
-  font-size: 0.9rem;
+  font-size: 0.9rem; /* حجم الأيقونة */
 }
 .nav-actions {
-  display: flex;
-  align-items: center;
+  display: flex; /* عرض مرن */
+  align-items: center; /* محاذاة عمودية */
 }
 .nav-actions .btn {
-  padding: 0.5rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+  padding: 0.5rem 1rem; /* حشو داخلي للأزرار */
+  display: flex; /* عرض مرن */
+  align-items: center; /* محاذاة عمودية */
+  gap: 0.4rem; /* مسافة بين الأيقونة والنص */
 }
 
-/* Mobile menu button & panel */
+/* ====================================================================
+   📱 MOBILE MENU - القائمة الجانبية للموبايل
+==================================================================== */
 .mobile-menu-btn {
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 30px;
-  height: 21px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  margin-left: 1rem;
+  display: none; /* مخفي افتراضياً (يظهر في الموبايل فقط) */
+  flex-direction: column; /* ترتيب عمودي للخطوط */
+  justify-content: space-between; /* توزيع المسافات */
+  width: 30px; /* عرض الزر */
+  height: 21px; /* ارتفاع الزر */
+  background: transparent; /* خلفية شفافة */
+  border: none; /* بدون حدود */
+  cursor: pointer; /* مؤشر اليد */
+  padding: 0; /* بدون حشو */
+  margin-left: 1rem; /* هامش من اليسار */
 }
 .mobile-menu-btn span {
-  width: 100%;
-  height: 3px;
-  background-color: white;
-  border-radius: 3px;
-  transition: all 0.3s ease;
+  width: 100%; /* عرض كامل */
+  height: 3px; /* سُمك الخط */
+  background-color: white; /* لون أبيض */
+  border-radius: 3px; /* زوايا دائرية */
+  transition: all 0.3s ease; /* انتقال سلس */
 }
-.mobile-menu-open .mobile-menu-btn span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-.mobile-menu-open .mobile-menu-btn span:nth-child(2) { opacity: 0; }
-.mobile-menu-open .mobile-menu-btn span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+/* تحويل الخطوط لشكل X عند الفتح */
+.mobile-menu-open .mobile-menu-btn span:nth-child(1) { 
+  transform: translateY(9px) rotate(45deg); /* الخط الأول يتحرك لأسفل ويدور */
+}
+.mobile-menu-open .mobile-menu-btn span:nth-child(2) { 
+  opacity: 0; /* الخط الأوسط يختفي */
+}
+.mobile-menu-open .mobile-menu-btn span:nth-child(3) { 
+  transform: translateY(-9px) rotate(-45deg); /* الخط الثالث يتحرك لأعلى ويدور */
+}
 
 .mobile-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #c41f09;
-  z-index: 99;
-  padding-top: 5rem;
-  transform: translateX(100%);
-  transition: transform 0.3s ease-in-out;
+  position: fixed; /* ثابت على الشاشة */
+  top: 0; /* من أعلى */
+  left: 0; /* من اليسار */
+  width: 100%; /* عرض كامل */
+  height: 100%; /* ارتفاع كامل */
+  background-color: #c41f09; /* خلفية حمراء */
+  z-index: 99; /* يظهر فوق العناصر */
+  padding-top: 5rem; /* مسافة من الأعلى */
+  transform: translateX(100%); /* مخفي خارج الشاشة */
+  transition: transform 0.3s ease-in-out; /* انتقال سلس */
 }
 .mobile-menu-open .mobile-menu {
-  transform: translateX(0);
+  transform: translateX(0); /* يظهر عند الفتح */
 }
 .mobile-nav {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
+  display: flex; /* عرض مرن */
+  flex-direction: column; /* ترتيب عمودي */
+  align-items: center; /* محاذاة في المنتصف */
+  gap: 1.5rem; /* مسافة بين الروابط */
 }
 .mobile-nav a, .mobile-signin {
-  color: white;
-  font-size: 1.2rem;
-  text-decoration: none;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  color: white; /* لون أبيض */
+  font-size: 1.2rem; /* حجم الخط */
+  text-decoration: none; /* بدون خط تحت */
+  font-weight: 500; /* سُمك الخط */
+  display: flex; /* عرض مرن */
+  align-items: center; /* محاذاة عمودية */
+  gap: 0.5rem; /* مسافة بين الأيقونة والنص */
 }
 
-/* —————————— HERO SECTION —————————— */
+/* ====================================================================
+   🎨 HERO SECTION - قسم البطل (الترويسة)
+==================================================================== */
 .hero {
-  background-color: #c41f09;
-  color: #fff;
-  padding-block: 3rem 5rem;
-  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-  margin-bottom: 3rem;
+  background-color: #c41f09; /* خلفية حمراء */
+  color: #fff; /* نص أبيض */
+  padding-block: 3rem 5rem; /* حشو عمودي (أعلى أسفل) */
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); /* قص مائل من الأسفل */
+  margin-bottom: 3rem; /* مسافة من الأسفل */
 }
 .hero-secondary {
-  background-color: #333;
-  clip-path: none; /* إزالة القص من صفحة الخدمات */
+  background-color: #333; /* خلفية رمادية غامقة للصفحات الثانوية */
+  clip-path: none; /* بدون قص */
 }
 .hero-inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2rem;
+  display: flex; /* عرض مرن */
+  flex-wrap: wrap; /* يسمح بالانتقال لسطر جديد */
+  align-items: center; /* محاذاة عمودية */
+  gap: 2rem; /* مسافة بين العناصر */
 }
 .hero-text {
-  flex: 1 1 380px;
+  flex: 1 1 380px; /* يمكن أن يتمدد ويتقلص، الحد الأدنى 380px */
 }
 .hero-subtitle {
-  display: inline-block;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #ffe;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-  position: relative;
-  padding-left: 15px;
+  display: inline-block; /* عرض كـ كتلة مضمنة */
+  text-transform: uppercase; /* تحويل النص لأحرف كبيرة */
+  letter-spacing: 1px; /* مسافة بين الحروف */
+  color: #ffe; /* لون أصفر فاتح */
+  font-size: 0.9rem; /* حجم الخط */
+  margin-bottom: 0.5rem; /* مسافة من الأسفل */
+  position: relative; /* لإضافة عنصر pseudo */
+  padding-left: 15px; /* مسافة من اليسار للنقطة */
 }
 .hero-subtitle::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  background-color: #fff;
-  border-radius: 50%;
+  content: ''; /* محتوى فارغ */
+  position: absolute; /* موضع مطلق */
+  left: 0; /* من اليسار */
+  top: 50%; /* من المنتصف عمودياً */
+  transform: translateY(-50%); /* توسيط عمودي */
+  width: 8px; /* عرض النقطة */
+  height: 8px; /* ارتفاع النقطة */
+  background-color: #fff; /* لون أبيض */
+  border-radius: 50%; /* دائرة كاملة */
 }
 .hero-title {
-  font-size: 2.25rem;
-  margin-bottom: 1rem;
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: 2.25rem; /* حجم خط كبير */
+  margin-bottom: 1rem; /* مسافة من الأسفل */
+  font-weight: 700; /* سُمك خط عريض */
+  line-height: 1.2; /* ارتفاع السطر */
 }
 .hero-desc {
-  margin-bottom: 1.5rem;
-  max-width: 500px;
-  opacity: 0.9;
+  margin-bottom: 1.5rem; /* مسافة من الأسفل */
+  max-width: 500px; /* أقصى عرض */
+  opacity: 0.9; /* شفافية قليلة */
 }
 .search-form {
-  display: flex;
-  gap: 0.5rem;
-  max-width: 500px;
+  display: flex; /* عرض مرن */
+  gap: 0.5rem; /* مسافة بين العناصر */
+  max-width: 500px; /* أقصى عرض */
 }
 .search-input {
-  flex: 1;
-  padding: 0.75rem 1rem;
-  border-radius: 4px;
-  border: none;
-  font-size: 1rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex: 1; /* يأخذ المساحة المتبقية */
+  padding: 0.75rem 1rem; /* حشو داخلي */
+  border-radius: 4px; /* زوايا دائرية */
+  border: none; /* بدون حدود */
+  font-size: 1rem; /* حجم الخط */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* ظل خفيف */
 }
 .search-input:focus {
-  outline: 2px solid #3CB5CD;
+  outline: 2px solid #3CB5CD; /* إطار أزرق عند التركيز */
 }
 .hero-image img {
-  border-radius: 8px;
-  max-width: 100%;
-  height: auto;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-  transform: rotate(2deg);
-  transition: transform 0.3s ease;
+  border-radius: 8px; /* زوايا دائرية */
+  max-width: 100%; /* عرض أقصى 100% */
+  height: auto; /* ارتفاع تلقائي */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* ظل */
+  transform: rotate(2deg); /* دوران خفيف */
+  transition: transform 0.3s ease; /* انتقال سلس */
 }
 .hero-image img:hover {
-  transform: rotate(0);
+  transform: rotate(0); /* إلغاء الدوران عند التمرير */
 }
 
-/* —————————— SECTION TITLES —————————— */
+/* ====================================================================
+   📌 SECTION TITLES - عناوين الأقسام
+==================================================================== */
 .trending-header,
 .section-header {
-  text-align: center;
-  margin-bottom: 2.5rem;
+  text-align: center; /* محاذاة في المنتصف */
+  margin-bottom: 2.5rem; /* مسافة من الأسفل */
 }
 .trending-label {
-  display: inline-block;
-  color: #ee626b;
-  text-transform: uppercase;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.25rem;
+  display: inline-block; /* عرض كـ كتلة مضمنة */
+  color: #ee626b; /* لون وردي */
+  text-transform: uppercase; /* أحرف كبيرة */
+  font-weight: 500; /* سُمك خط متوسط */
+  letter-spacing: 0.05em; /* مسافة بين الحروف */
+  margin-bottom: 0.25rem; /* مسافة من الأسفل */
 }
 .trending-title,
 .section-title {
-  font-size: 2rem;
-  font-weight: 600;
-  position: relative;
-  display: inline-block;
-  padding-bottom: 10px;
+  font-size: 2rem; /* حجم خط كبير */
+  font-weight: 600; /* سُمك خط */
+  position: relative; /* لإضافة الخط السفلي */
+  display: inline-block; /* عرض كـ كتلة مضمنة */
+  padding-bottom: 10px; /* مسافة من الأسفل للخط */
 }
 .trending-title::after,
 .section-title::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background-color: #c41f09;
+  content: ''; /* محتوى فارغ */
+  position: absolute; /* موضع مطلق */
+  left: 50%; /* من المنتصف */
+  bottom: 0; /* من الأسفل */
+  transform: translateX(-50%); /* توسيط أفقي */
+  width: 80px; /* عرض الخط */
+  height: 3px; /* سُمك الخط */
+  background-color: #c41f09; /* لون أحمر */
 }
 .section-desc {
-  margin-top: 0.5rem;
-  color: #666;
-  text-align: center;
+  margin-top: 0.5rem; /* مسافة من الأعلى */
+  color: #666; /* لون رمادي */
+  text-align: center; /* محاذاة في المنتصف */
 }
 
 
-/* ======================================
-   GAMES GRID (HOMEPAGE - VERTICAL CARDS)
-====================================== */
-/* ✅ التعديل هنا: تم تغيير طريقة العرض إلى grid */
-/* شبكة الألعاب */
+/* ====================================================================
+   🎮💎 GAME CARDS - كروت الألعاب (القسم الأهم)
+==================================================================== */
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   📊 GRID CONTAINER - حاوية الشبكة
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .trending-games {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  justify-items: center; /* 👈 تمنع التمدد */
+  display: grid; /* عرض شبكي */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+  /* أعمدة تلقائية: كل عمود على الأقل 260px ويتمدد لملء المساحة */
+  gap: 2.5rem; /* مسافة بين الكروت */
+  justify-items: center; /* توسيط الكروت أفقياً */
+  padding: 1.5rem 0; /* حشو عمودي */
 }
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   🎴 CARD CONTAINER - حاوية الكرت الرئيسية
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .game-card {
-  width: min(100%, 280px); /* 👈 عرض ثابت (بحد أقصى 280px) */
-  min-height: 520px;
-  background: #fff;
-  border-radius: 26px;
-  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-  transition: transform 0.22s ease, box-shadow 0.24s ease;
-  padding-bottom: 1.4rem;
+  width: min(100%, 285px); /* العرض: إما 100% أو 285px أيهما أصغر */
+  background: #ffffff; /* خلفية بيضاء */
+  border-radius: 20px; /* زوايا دائرية كبيرة */
+  overflow: hidden; /* إخفاء أي محتوى خارج الحدود */
+  position: relative; /* لوضع العناصر المطلقة بداخله */
+  cursor: pointer; /* مؤشر اليد عند التمرير */
+  
+  /* 🎨 BORDER - بوردر أحمر رفيع وأنيق حول الكرت */
+  border: 2px solid rgba(196, 31, 9, 0.15); 
+  /* لون أحمر بشفافية 15% - رفيع وناعم */
+  
+  /* ✨ SHADOW - ظل متعدد الطبقات لعمق احترافي */
+  box-shadow: 
+    0 4px 6px rgba(0,0,0,0.07),        /* ظل قريب خفيف (عمق قريب) */
+    0 10px 20px rgba(196, 31, 9, 0.1); /* ظل بعيد بلون أحمر (عمق بعيد) */
+  
+  /* 🎯 TRANSITION - انتقال سلس لجميع التغييرات */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+  /* 0.4 ثانية مع منحنى cubic-bezier لحركة طبيعية */
 }
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   🔥 HOVER STATE - حالة التمرير على الكرت
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.game-card:hover {
+  transform: translateY(-12px); /* رفع الكرت 12 بكسل لأعلى */
+  
+  border-color: rgba(196, 31, 9, 0.4); 
+  /* البوردر يصبح أغمق (شفافية 40% بدل 15%) */
+  
+  /* ✨ ظل أقوى وأكبر عند الهوفر */
+  box-shadow: 
+    0 12px 24px rgba(0,0,0,0.12),       /* ظل قريب أقوى */
+    0 24px 48px rgba(196, 31, 9, 0.25); /* ظل بعيد أحمر أقوى وأكبر */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   📸 IMAGE SECTION - قسم الصورة
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .game-image {
-  width: 100%;
-  aspect-ratio: 3 / 4; 
-  background: #1f2329;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
+  width: 100%; /* عرض كامل */
+  aspect-ratio: 3 / 4; /* نسبة 3:4 (الطول أكبر من العرض) - مناسبة لأغلفة الألعاب */
+  overflow: hidden; /* إخفاء أي جزء خارج الحدود */
+  position: relative; /* لوضع الشارة بداخله */
+  background: linear-gradient(135deg, #1a1a1a, #2d2d2d); 
+  /* خلفية متدرجة رمادية غامقة (تظهر أثناء تحميل الصورة) */
 }
+
 .game-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  filter: saturate(1.08) brightness(0.95);
-  transition: transform 0.28s ease, filter 0.28s ease;
+  width: 100%; /* عرض كامل */
+  height: 100%; /* ارتفاع كامل */
+  object-fit: cover; /* تغطية كاملة مع الحفاظ على النسب */
+  transition: transform 0.5s ease; /* انتقال سلس للتكبير (نصف ثانية) */
+  filter: brightness(0.98); /* تقليل السطوع قليلاً (2%) */
 }
+
 .game-card:hover .game-image img {
-  transform: scale(1.08);
-  filter: saturate(1.15) brightness(1.02);
+  transform: scale(1.1); /* تكبير الصورة 110% عند الهوفر */
+  filter: brightness(1.05); /* زيادة السطوع 5% عند الهوفر */
 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   🏷️ CATEGORY BADGE - شارة الفئة (أكشن، رياضة...)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .game-category {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: #c41f09;
-  color: white;
-  padding: 0.3rem 0.8rem;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  position: absolute; /* موضع مطلق داخل .game-image */
+  top: 16px; /* 16 بكسل من الأعلى */
+  right: 16px; /* 16 بكسل من اليمين */
+  background: linear-gradient(135deg, #c41f09, #e63946); 
+  /* خلفية متدرجة من أحمر غامق لأحمر فاتح */
+  color: white; /* نص أبيض */
+  padding: 0.5rem 1.1rem; /* حشو داخلي (عمودي أفقي) */
+  border-radius: 12px; /* زوايا دائرية متوسطة */
+  font-size: 0.72rem; /* حجم خط صغير */
+  font-weight: 800; /* سُمك خط عريض جداً */
+  text-transform: uppercase; /* تحويل لأحرف كبيرة */
+  letter-spacing: 1px; /* مسافة 1 بكسل بين الحروف */
+  box-shadow: 0 6px 16px rgba(196, 31, 9, 0.4); 
+  /* ظل أحمر متوسط القوة */
+  z-index: 5; /* يظهر فوق الصورة */
+  transition: all 0.3s ease; /* انتقال سلس */
 }
 
+.game-card:hover .game-category {
+  transform: translateY(-4px); /* رفع الشارة 4 بكسل لأعلى */
+  box-shadow: 0 10px 24px rgba(196, 31, 9, 0.6); 
+  /* ظل أقوى وأبعد عند الهوفر */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   📝 DETAILS SECTION - قسم التفاصيل (العنوان والسعر)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .game-details {
-  padding: 1.25rem 1.4rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  flex: 1;
+  padding: 1.6rem 1.5rem 1.5rem; 
+  /* حشو: 1.6rem أعلى، 1.5rem يمين ويسار، 1.5rem أسفل */
+  background: #ffffff; /* خلفية بيضاء */
 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   📛 GAME TITLE - عنوان اللعبة
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .game-details .game-title {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #1f1f1f;
+  font-size: 1.2rem; /* حجم خط متوسط */
+  font-weight: 700; /* سُمك خط عريض */
+  color: #1a1a1a; /* لون رمادي غامق جداً (قريب من الأسود) */
+  margin-bottom: 1.2rem; /* مسافة 1.2rem من الأسفل */
+  line-height: 1.4; /* ارتفاع السطر (للعناوين الطويلة) */
+  transition: color 0.3s ease; /* انتقال سلس للون */
 }
+
+.game-card:hover .game-title {
+  color: #c41f09; /* يتحول العنوان للون الأحمر عند هوفر الكرت */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   💰 GAME INFO - السعر والزر (صف واحد)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .game-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: auto; /* لدفع السعر والزر للأسفل */
+  display: flex; /* عرض مرن */
+  justify-content: space-between; /* توزيع المسافة بين السعر والزر */
+  align-items: center; /* محاذاة عمودية في المنتصف */
+  gap: 1rem; /* مسافة 1rem بين السعر والزر */
 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   💵 PRICE - السعر
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .game-price {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #c41f09;
+  font-size: 1.7rem; /* حجم خط كبير للسعر */
+  font-weight: 900; /* سُمك خط عريض جداً */
+  color: #c41f09; /* لون أحمر */
+  letter-spacing: -0.5px; /* تقليل المسافة بين الأرقام قليلاً للمظهر الاحترافي */
 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   🛒 BUY BUTTON - زر الشراء
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .buy-btn {
-  background: linear-gradient(105deg, #3cb5cd, #2fe2d2);
-  color: #fff !important;
-  padding: 0.5rem 1.3rem;
-  border-radius: 25px;
-  font-size: 0.95rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
+  /* 🎨 BACKGROUND - خلفية متدرجة من أزرق فاتح لأخضر مزرق */
+  background: linear-gradient(135deg, #3cb5cd, #2fe2d2); 
+  
+  color: white; /* نص أبيض */
+  padding: 0.75rem 1.5rem; /* حشو داخلي مريح */
+  border-radius: 30px; /* زوايا دائرية كاملة (حبة دواء) */
+  font-size: 0.9rem; /* حجم خط متوسط */
+  font-weight: 700; /* سُمك خط عريض */
+  text-decoration: none; /* بدون خط تحت الرابط */
+  display: inline-flex; /* عرض مرن مضمن */
+  align-items: center; /* محاذاة عمودية */
+  gap: 0.5rem; /* مسافة بين الأيقونة والنص */
+  letter-spacing: 0.3px; /* مسافة خفيفة بين الحروف */
+  
+  /* ✨ SHADOW - ظل سماوي جميل */
+  box-shadow: 0 6px 16px rgba(60, 181, 205, 0.35); 
+  
+  transition: all 0.3s ease; /* انتقال سلس */
+  position: relative; /* لإضافة تأثير اللمعة */
+  overflow: hidden; /* لإخفاء اللمعة خارج الحدود */
 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ✨ SHINE EFFECT - تأثير لمعة تعبر الزر
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.buy-btn::before {
+  content: ''; /* محتوى فارغ */
+  position: absolute; /* موضع مطلق */
+  top: 0; /* من الأعلى */
+  left: -100%; /* يبدأ خارج الزر من اليسار */
+  width: 100%; /* عرض كامل */
+  height: 100%; /* ارتفاع كامل */
+  background: linear-gradient(90deg, 
+    transparent,                    /* شفاف في البداية */
+    rgba(255,255,255,0.3),         /* أبيض شفاف في المنتصف (اللمعة) */
+    transparent                     /* شفاف في النهاية */
+  );
+  transition: left 0.5s ease; /* انتقال سلس لنصف ثانية */
+}
+
+/* عند الهوفر: اللمعة تعبر من اليسار لليمين */
+.buy-btn:hover::before {
+  left: 100%; /* تنتقل خارج الزر من اليمين */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   🎯 BUTTON HOVER - تأثير الهوفر على الزر
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .buy-btn:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 8px 20px rgba(60, 181, 205, 0.3);
+  transform: translateY(-4px); /* رفع الزر 4 بكسل لأعلى */
+  
+  /* ظل أقوى وأكبر */
+  box-shadow: 0 10px 24px rgba(60, 181, 205, 0.5); 
+  
+  /* عكس اتجاه التدرج (من أخضر لأزرق) */
+  background: linear-gradient(135deg, #2fe2d2, #3cb5cd); 
+}
+
+/* عند الضغط على الزر */
+.buy-btn:active {
+  transform: translateY(-2px); /* رفع أقل (2 بكسل) */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   🛍️ CART ICON - أيقونة السلة داخل الزر
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.buy-btn i {
+  transition: transform 0.3s ease; /* انتقال سلس */
+}
+
+.buy-btn:hover i {
+  transform: scale(1.15) rotate(8deg); 
+  /* تكبير الأيقونة 115% ودورانها 8 درجات */
 }
 
 
-/* ======================================
-   FEATURES GRID (SERVICES PAGE)
-====================================== */
+/* ====================================================================
+   🎁 FEATURES GRID - شبكة المميزات (صفحة الخدمات)
+==================================================================== */
 .features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  display: grid; /* عرض شبكي */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+  /* أعمدة تلقائية */
+  gap: 1.5rem; /* مسافة بين الكروت */
 }
 .feature-card {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 18px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  transition: transform 0.2s, box-shadow 0.2s;
-  border-top: 5px solid #3CB5CD;
+  background: #fff; /* خلفية بيضاء */
+  padding: 2rem; /* حشو داخلي */
+  border-radius: 18px; /* زوايا دائرية */
+  text-align: center; /* محاذاة في المنتصف */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* ظل خفيف */
+  transition: transform 0.2s, box-shadow 0.2s; /* انتقال سلس */
+  border-top: 5px solid #3CB5CD; /* خط علوي سماوي */
 }
 .feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(60,181,205,0.15);
+  transform: translateY(-5px); /* رفع الكرت 5 بكسل */
+  box-shadow: 0 8px 25px rgba(60,181,205,0.15); /* ظل أقوى */
 }
 .feature-icon {
-  font-size: 2.5rem;
-  color: #c41f09;
-  margin-bottom: 0.8rem;
+  font-size: 2.5rem; /* حجم الأيقونة */
+  color: #c41f09; /* لون أحمر */
+  margin-bottom: 0.8rem; /* مسافة من الأسفل */
 }
 .feature-card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.2rem; /* حجم عنوان */
+  margin-bottom: 0.5rem; /* مسافة من الأسفل */
 }
 .feature-card p {
-  color: #666;
+  color: #666; /* لون رمادي */
 }
 
-/* —————————— FAQ SECTION —————————— */
+/* ====================================================================
+   ❓ FAQ SECTION - قسم الأسئلة الشائعة
+==================================================================== */
 .faq-container {
-  max-width: 800px;
-  margin: 2rem auto;
+  max-width: 800px; /* أقصى عرض */
+  margin: 2rem auto; /* توسيط */
 }
 .faq-item {
-  border-bottom: 1px solid #eee;
-  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #eee; /* خط فاصل أسفل كل سؤال */
+  margin-bottom: 0.5rem; /* مسافة من الأسفل */
 }
 .faq-question {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-  cursor: pointer;
+  display: flex; /* عرض مرن */
+  justify-content: space-between; /* توزيع المسافة بين السؤال والأيقونة */
+  align-items: center; /* محاذاة عمودية */
+  padding: 1rem 0; /* حشو عمودي */
+  cursor: pointer; /* مؤشر اليد */
 }
 .faq-question h3 {
-  font-size: 1.1rem;
-  font-weight: 500;
+  font-size: 1.1rem; /* حجم خط السؤال */
+  font-weight: 500; /* سُمك متوسط */
 }
 .faq-toggle {
-  font-size: 1.2rem;
-  color: #777;
+  font-size: 1.2rem; /* حجم أيقونة + أو - */
+  color: #777; /* لون رمادي */
 }
 .faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease-out;
+  max-height: 0; /* مخفي افتراضياً */
+  overflow: hidden; /* إخفاء المحتوى الزائد */
+  transition: max-height 0.4s ease-out; /* انتقال سلس */
 }
 .faq-item.active .faq-answer {
-  max-height: 300px; /* يجب أن يكون كافياً */
-  padding-bottom: 1rem;
+  max-height: 300px; /* يظهر عند الضغط (300px كافية للإجابة) */
+  padding-bottom: 1rem; /* مسافة من الأسفل */
 }
 
-/* —————————— FOOTER —————————— */
+/* ====================================================================
+   🦶 FOOTER - التذييل
+==================================================================== */
 .footer {
-  background-color: #2a2a2a;
-  color: #ccc;
-  padding: 2rem 0;
-  margin-top: 3rem;
+  background-color: #2a2a2a; /* خلفية رمادية غامقة */
+  color: #ccc; /* نص رمادي فاتح */
+  padding: 2rem 0; /* حشو عمودي */
+  margin-top: 3rem; /* مسافة من الأعلى */
 }
 .footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
+  display: flex; /* عرض مرن */
+  justify-content: space-between; /* توزيع المسافات */
+  align-items: center; /* محاذاة عمودية */
+  flex-wrap: wrap; /* يسمح بالانتقال لسطر جديد */
+  gap: 1rem; /* مسافة بين العناصر */
 }
 .social-icons a {
-  color: #ccc;
-  font-size: 1.2rem;
-  margin-left: 1rem;
-  transition: color 0.2s;
+  color: #ccc; /* لون رمادي فاتح */
+  font-size: 1.2rem; /* حجم الأيقونات */
+  margin-left: 1rem; /* مسافة بين الأيقونات */
+  transition: color 0.2s; /* انتقال سلس */
 }
 .social-icons a:hover {
-  color: #3CB5CD;
+  color: #3CB5CD; /* يتحول للون السماوي عند التمرير */
 }
 
-/* —————————— RESPONSIVENESS —————————— */
+/* ====================================================================
+   📱 RESPONSIVENESS - الاستجابة للشاشات المختلفة
+==================================================================== */
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   💻 TABLETS - الأجهزة اللوحية (992px وأقل)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media (max-width: 992px) {
-    .hero-title { font-size: 1.8rem; }
-    /* لم نعد بحاجة لتعديل عرض الكرت هنا لأن الـ grid يعتني بذلك */
+  .hero-title { 
+    font-size: 1.8rem; /* تصغير حجم عنوان الهيرو */
+  }
 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   📱 MOBILE - الهواتف (600px وأقل)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media (max-width: 600px) {
-  .nav-links { display: none; }
-  .mobile-menu-btn { display: flex; }
-  .hero { padding-block: 2rem 4rem; }
-  .hero-title { font-size: 1.7rem; }
-  .hero-desc { max-width: 100%; }
-  .search-form { flex-direction: column; max-width: 100%; }
-  .search-form button { margin-left: 0; }
-  .hero-image { order: -1; margin-bottom: 1.5rem; }
-  .footer-content { flex-direction: column; text-align: center; }
-  .social-icons { margin-top: 0.5rem; }
+  .nav-links { 
+    display: none; /* إخفاء روابط النافبار */
+  }
+  .mobile-menu-btn { 
+    display: flex; /* إظهار زر القائمة */
+  }
+  .hero { 
+    padding-block: 2rem 4rem; /* تقليل الحشو */
+  }
+  .hero-title { 
+    font-size: 1.7rem; /* تصغير العنوان أكثر */
+  }
+  .hero-desc { 
+    max-width: 100%; /* عرض كامل */
+  }
+  .search-form { 
+    flex-direction: column; /* ترتيب عمودي */
+    max-width: 100%; /* عرض كامل */
+  }
+  .search-form button { 
+    margin-left: 0; /* إزالة الهامش */
+  }
+  .hero-image { 
+    order: -1; /* وضع الصورة فوق النص */
+    margin-bottom: 1.5rem; /* مسافة من الأسفل */
+  }
+  .footer-content { 
+    flex-direction: column; /* ترتيب عمودي */
+    text-align: center; /* محاذاة في المنتصف */
+  }
+  .social-icons { 
+    margin-top: 0.5rem; /* مسافة من الأعلى */
+  }
+  .trending-games { 
+    gap: 2rem; /* تقليل المسافة بين الكروت */
+  }
 }
+
+/* ====================================================================
+   🔧 HARDWARE FEATURE - ميزة إضافية
+==================================================================== */
 .hardware-feature i {
-  color: #777;
+  color: #777; /* لون رمادي للأيقونات */
 }
